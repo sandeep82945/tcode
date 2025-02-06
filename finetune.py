@@ -57,7 +57,6 @@ model = AutoModelForCausalLM.from_pretrained(
     use_cache = True,
     device_map="auto", #{device_string}
 )
-exit(0)
 
 # PEFT config
 lora_alpha = 16
@@ -75,7 +74,7 @@ peft_config = LoraConfig(
 
 # Args 
 max_seq_length = 512
-output_dir = "./results"
+output_dir = "results"
 per_device_train_batch_size = 2
 gradient_accumulation_steps = 4
 optim = "adamw_hf"
@@ -125,6 +124,7 @@ for name, module in trainer.model.named_modules():
 # Train :)
 trainer.train()
 
+exit(0)
 model = AutoModelForCausalLM.from_pretrained(
     "/scratch/x77/cn1951/llama3",
     torch_dtype=torch.bfloat16,
