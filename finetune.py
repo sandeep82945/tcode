@@ -96,7 +96,6 @@ peft_config = LoraConfig(
     target_modules=["k_proj", "q_proj", "v_proj", "up_proj", "down_proj", "gate_proj"]
 )
 
-
 # Args 
 max_seq_length = 512
 output_dir = "/scratch/ttc/sandeep/hypothesis"
@@ -106,11 +105,13 @@ logging_steps = 1
 learning_rate = 2e-4
 max_grad_norm = 0.3
 warmup_ratio = 0.1
+max_steps = len(dataset) * per_device_train_batch_size
 lr_scheduler_type = "cosine"
 training_arguments = TrainingArguments(
     output_dir=output_dir,
     per_device_train_batch_size=per_device_train_batch_size,
     optim=optim,
+    max_steps=max_steps,
     logging_steps=logging_steps,
     learning_rate=learning_rate,
     fp16=True,
