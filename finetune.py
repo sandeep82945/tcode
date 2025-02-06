@@ -36,6 +36,7 @@ def formatting_prompts_func(examples):
 
 # Load dataset
 dataset = load_dataset("json", data_files="neurips2023_reasoning.json", split="train")
+dataset = dataset.map(formatting_prompts_func, batched=True)
 
 print(dataset["text"][:5])
 exit(0)
