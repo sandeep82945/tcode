@@ -64,6 +64,8 @@ def formatting_prompts_func(examples):
 dataset = load_dataset("json", data_files="merged_reasoning.json", split="train")
 dataset = dataset.map(formatting_prompts_func, batched=True)
 
+print(len(dataset["text"]))
+
 # Load the model + tokenizer
 model_name = "meta-llama/Llama-3.1-8B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -99,28 +101,24 @@ peft_config = LoraConfig(
 max_seq_length = 512
 output_dir = "results"
 per_device_train_batch_size = 2
-gradient_accumulation_steps = 4
 optim = "adamw_hf"
 logging_steps = 1
 learning_rate = 2e-4
 max_grad_norm = 0.3
-max_steps = 5763
 warmup_ratio = 0.1
 lr_scheduler_type = "cosine"
 training_arguments = TrainingArguments(
     output_dir=output_dir,
     per_device_train_batch_size=per_device_train_batch_size,
-    gradient_accumulation_steps=gradient_accumulation_steps,
     optim=optim,
     logging_steps=logging_steps,
     learning_rate=learning_rate,
     fp16=True,
     max_grad_norm=max_grad_norm,
-    max_steps=max_steps,
     warmup_ratio=warmup_ratio,
     group_by_length=False, # Otherwise weird loss pattern (see https://github.com/artidoro/qlora/issues/84#issuecomment-1572408347, https://github.com/artidoro/qlora/issues/228, https://wandb.ai/answerdotai/fsdp_qlora/runs/snhj0eyh)
     lr_scheduler_type=lr_scheduler_type,
-    gradient_checkpointing=True,
+    gradient_checkpointing=False,
     gradient_checkpointing_kwargs={'use_reentrant':False}, # Needed for DDP
     # report_to="wandb",
     report_to=None,
