@@ -25,16 +25,19 @@ alpaca_prompt = """Below is a scientific question framed as a "bit-spark-flip". 
 {}"""
 
 def formatting_prompts_func(examples):
-    bit_flips = examples["bit_flip_spark"]
     texts = []
-    for bf in bit_flips:
-        # Must add EOS_TOKEN, otherwise your generation will go on forever!
-        text = alpaca_prompt.format(bf['bit'], bf['spark'], bf['flip'])
+    
+    for bit, spark, flip in zip(examples["bit"], examples["spark"], examples["flip"]):
+        # Ensure that EOS token is added if necessary
+        text = alpaca_prompt.format(bit, spark, flip) + " <EOS>"
         texts.append(text)
-    return { "text" : texts, }
+    
+    return {"text": texts}
 
-dataset = load_dataset("json", data_files="neurips2023_reasoning.json", split='train')
-dataset = dataset.map(formatting_prompts_func, batched = True)
+# Load dataset
+dataset = load_dataset("json", data_files="neurips2023_reasoning.json", split="train", batched=True)
+
+exit(0)
 
 
 # Load the model + tokenizer
