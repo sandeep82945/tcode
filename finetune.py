@@ -53,9 +53,9 @@ Use this template whenever you see a Bit statement, and produce the Spark, Flip,
 def formatting_prompts_func(examples):
     texts = []
     
-    for bit, spark, flip in zip(examples["bit"], examples["spark"], examples["flip"], examples["chain_of_reasoning"]):
+    for bit, spark, flip, reason in zip(examples["bit"], examples["spark"], examples["flip"], examples["chain_of_reasoning"]):
         # Ensure that EOS token is added if necessary
-        text = alpaca_prompt.format(bit, spark, flip) + " <EOS>"
+        text = alpaca_prompt.format(bit, spark, flip, reason) + " <EOS>"
         texts.append(text)
     
     return {"text": texts}
