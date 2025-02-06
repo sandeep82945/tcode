@@ -34,13 +34,11 @@ def formatting_prompts_func(examples):
     return { "text" : texts, }
 
 dataset = load_dataset("json", data_files="neurips2023_reasoning.json", split='train')
-print(dataset[0])
-exit(0)
 dataset = dataset.map(formatting_prompts_func, batched = True)
 
 
 # Load the model + tokenizer
-model_name = "/scratch/x77/cn1951/llama3"
+model_name = "meta-llama/Llama-3.2-3B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 bnb_config = BitsAndBytesConfig(
@@ -52,9 +50,10 @@ model = AutoModelForCausalLM.from_pretrained(
     model_name,
     quantization_config=bnb_config,
     trust_remote_code=True,
-    use_cache = False,
-    device_map="cuda:0", #{device_string}
+    use_cache = True,
+    device_map="auto", #{device_string}
 )
+exit(0)
 
 # PEFT config
 lora_alpha = 16
