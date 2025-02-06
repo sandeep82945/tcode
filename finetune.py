@@ -61,24 +61,21 @@ def formatting_prompts_func(examples):
     return {"text": texts}
 
 # Load dataset
-dataset = load_dataset("json", data_files="neurips2023_reasoning.json", split="train")
+dataset = load_dataset("json", data_files="merged_reasoning.json", split="train")
 dataset = dataset.map(formatting_prompts_func, batched=True)
-
-exit(0)
-
 
 # Load the model + tokenizer
 model_name = "meta-llama/Llama-3.2-3B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.float16,
-)
+# bnb_config = BitsAndBytesConfig(
+#     load_in_4bit=True,
+#     bnb_4bit_quant_type="nf4",
+#     bnb_4bit_compute_dtype=torch.float16,
+# )
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    quantization_config=bnb_config,
+    # quantization_config=bnb_config,
     trust_remote_code=True,
     use_cache = True,
     device_map="auto", #{device_string}
@@ -104,7 +101,6 @@ output_dir = "results"
 per_device_train_batch_size = 2
 gradient_accumulation_steps = 4
 optim = "adamw_hf"
-save_steps = 1000
 logging_steps = 1
 learning_rate = 2e-4
 max_grad_norm = 0.3
@@ -116,7 +112,6 @@ training_arguments = TrainingArguments(
     per_device_train_batch_size=per_device_train_batch_size,
     gradient_accumulation_steps=gradient_accumulation_steps,
     optim=optim,
-    save_steps=save_steps,
     logging_steps=logging_steps,
     learning_rate=learning_rate,
     fp16=True,
@@ -149,6 +144,9 @@ for name, module in trainer.model.named_modules():
 
 # Train :)
 trainer.train()
+
+trainer.save_model(output_dir)
+tokenizer.save_pretrained(output_dir)
 
 exit(0)
 model = AutoModelForCausalLM.from_pretrained(
