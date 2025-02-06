@@ -65,7 +65,7 @@ dataset = load_dataset("json", data_files="merged_reasoning.json", split="train"
 dataset = dataset.map(formatting_prompts_func, batched=True)
 
 # Load the model + tokenizer
-model_name = "meta-llama/Llama-3.2-3B-Instruct"
+model_name = "meta-llama/Llama-3.1-8B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 # bnb_config = BitsAndBytesConfig(
