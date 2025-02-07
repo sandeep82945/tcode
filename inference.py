@@ -21,7 +21,7 @@ model = model.merge_and_unload()
 model.eval()
 
 # Function to generate response
-def generate_hypothesis(bit_statement, max_length=512, temperature=0.7, top_p=0.9):
+def generate_hypothesis(bit_statement, max_length=1024, temperature=0.1, top_p=0.9):
     """Generates a hypothesis (Flip, and its Reasoning Chain) given a Bit statement."""
     input_text = f"""
     ### Bit:
