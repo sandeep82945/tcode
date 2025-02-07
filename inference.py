@@ -20,12 +20,10 @@ model.eval()
 
 # Function to generate response
 def generate_hypothesis(bit_statement, max_length=512, temperature=0.7, top_p=0.9):
-    """Generates a hypothesis (Spark, Flip, and Reasoning Chain) given a Bit statement."""
+    """Generates a hypothesis (Flip, and its Reasoning Chain) given a Bit statement."""
     input_text = f"""
     ### Bit:
     {bit_statement}
-
-    ### Spark:
     """
     
     inputs = tokenizer(input_text, return_tensors="pt", padding=True, truncation=True).to(model.device)
@@ -47,5 +45,5 @@ def generate_hypothesis(bit_statement, max_length=512, temperature=0.7, top_p=0.
 if __name__ == "__main__":
     bit_example = "Transformer-based models struggle with handling long sequences efficiently in scientific hypothesis generation."
     generated_hypothesis = generate_hypothesis(bit_example)
-    print("\nGenerated Hypothesis:")
+    print("\nGenerated Flip and its Reasoning Chain:")
     print(generated_hypothesis)
