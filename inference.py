@@ -13,7 +13,7 @@ tokenizer.pad_token = tokenizer.eos_token
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     trust_remote_code=True,
-    device_map="auto"")
+    device_map="auto")
 
 # Load PEFT adapter (LoRA fine-tuned model)
 model = PeftModel.from_pretrained(model, fine_tuned_model_dir)
