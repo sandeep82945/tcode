@@ -16,6 +16,7 @@ model = AutoModelForCausalLM.from_pretrained(
 
 # Load PEFT adapter (LoRA fine-tuned model)
 model = PeftModel.from_pretrained(model, fine_tuned_model_dir)
+model = model.merge_and_unload()
 model.eval()
 
 # Function to generate response
