@@ -25,6 +25,7 @@ def generate_hypothesis(bit_statement, max_length=512, temperature=0.7, top_p=0.
     input_text = f"""
     ### Bit:
     {bit_statement}
+    Generated Flip and its Reasoning Chain is:
     """
     
     inputs = tokenizer(input_text, return_tensors="pt", padding=True, truncation=True).to(model.device)
