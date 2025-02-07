@@ -1,0 +1,204 @@
+[
+  {
+    "paper_id": "",
+    "title": "Sparse Autoencoders Enable Scalable and Reliable Circuit Identification in Language Models",
+    "authors": [
+      "Charles O'Neill",
+      "Thang Bui"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "O'Neill et al., 2025",
+    "abstract": "This paper introduces an efficient and robust method for discovering interpretable circuits in large language models using discrete sparse autoencoders. Our approach addresses key limitations of existing techniques, namely computational complexity and sensitivity to hyperparameters. We propose training sparse autoencoders on carefully designed positive and negative examples, where the model can only correctly predict the next token for the positive examples. We hypothesise that learned representations of attention head outputs will signal when a head is engaged in specific computations. By discretising the learned representations into integer codes and measuring the overlap between codes unique to positive examples for each head, we enable direct identification of attention heads involved in circuits without the need for expensive ablations or architectural modifications. On three well-studied tasks - indirect object identification, greater-than comparisons, and docstring completion - the proposed method achieves higher precision and recall in recovering ground-truth circuits compared to state-of-the-art baselines, while reducing runtime from hours to seconds. Notably, we require only 5-10 text examples for each task to learn robust representations. Our findings highlight the promise of discrete sparse autoencoders for scalable and efficient mechanistic interpretability, offering a new direction for analysing the inner workings of large language models.",
+    "bit": "Conventional interpretability techniques often require extensive ablations or architectural modifications, increasing computational costs and complexity. These methods further rely on sensitive hyperparameters, making them tough to replicate and tune across different tasks or models.",
+    "flip": "Instead, an approach was introduced that trains discrete sparse autoencoders on carefully designed positive and negative examples, enabling direct identification of attention heads based on learned integer codes. By eliminating the need for expensive ablations and reducing reliance on hyperparameter tuning, this technique achieves faster runtime and greater accuracy in revealing circuits within large language models.",
+    "spark": "Discrete codes for scalable interpretability",
+    "chain_of_reasoning": "I began by asking how cumbersome ablation procedures and architecture changes might inhibit adaptability. I tried training discrete sparse autoencoders on selected positive and negative samples to isolate each attention head\u2019s learned codes, aiming to reduce dependence on risky hyperparameter adjustments. Why restrict the training set in this manner? Because forcing correct next-token predictions only on the positive examples appeared to illuminate attention head usage when encoding certain computations. I then interrogated whether integer codes indeed emerged and overlapped specifically for heads critical to each task; subsequent tests on indirect object identification, greater-than comparisons, and docstring completion confirmed faster analyses and higher precision. Could these findings hold with just 5-10 examples per task? Repeated evaluations indicated stable performance across conditions, suggesting minimal data demands. I further inquired about whether my sampling strategy might generalize to larger models; consistent gains in interpretability and reduced runtime reinforced my confidence. Finally, checking for data distribution shifts helped validate that the approach retained efficacy, becoming a key turning point in confirming its scalability.",
+    "url": "https://arxiv.org/abs/2405.12522",
+    "pdf_url": "https://arxiv.org/pdf/2405.12522.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Disentangling Dense Embeddings with Sparse Autoencoders",
+    "authors": [
+      "Charles O'Neill",
+      "Christine Ye",
+      "Kartheik Iyer",
+      "John F. Wu"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "O'Neill et al., 2025",
+    "abstract": "Sparse autoencoders (SAEs) have shown promise in extracting interpretable features from complex neural networks. We present one of the first applications of SAEs to dense text embeddings from large language models, demonstrating their effectiveness in disentangling semantic concepts. By training SAEs on embeddings of over 420,000 scientific paper abstracts from computer science and astronomy, we show that the resulting sparse representations maintain semantic fidelity while offering interpretability. We analyse these learned features, exploring their behaviour across different model capacities and introducing a novel method for identifying ``feature families'' that represent related concepts at varying levels of abstraction. To demonstrate the practical utility of our approach, we show how these interpretable features can be used to precisely steer semantic search, allowing for fine-grained control over query semantics. This work bridges the gap between the semantic richness of dense embeddings and the interpretability of sparse representations. We open source our embeddings, trained sparse autoencoders, and interpreted features, as well as a web app for exploring them.",
+    "bit": "Large language model embeddings are widely used for representing text with high semantic fidelity. However, these dense representations are not inherently interpretable, making it difficult to understand how different concepts are separated or combined.",
+    "flip": "An approach uses sparse autoencoders to transform these dense embeddings into more interpretable, disentangled representations. By enforcing sparsity during training, distinct semantic features remain separated, allowing deeper insights into how concepts are encoded while preserving semantic fidelity.",
+    "spark": "Sparse autoencoders for interpretable semantic embeddings",
+    "chain_of_reasoning": "I began by asking: How do I preserve the rich semantic information from dense language model embeddings while exposing their internal conceptual structure? I hypothesized that an autoencoder with sparse hidden units could sharpen individual features, so I trained such a system on over 420,000 scientific abstracts in computer science and astronomy. As I monitored reconstruction error and semantic coherence, I noticed that each sparse dimension aligned with distinctive topics, indicating robust disentanglement. I then wondered: would scaling the hidden layer change how granular these topics became, and indeed, larger models revealed more nuanced dimensions of meaning. A pivotal realization came when I designed a procedure to cluster these features into related families, which unveiled nested layers of abstraction at both the broad and fine-grained levels. In evaluating how these sparse codes performed in semantic search, I found I could steer specific concepts by emphasizing or muting certain features. Questioning whether domain-specific terms were accurately captured, I tested on curated query sets and observed consistent improvements in interpretability. I remain curious whether extending training to even broader corpora will yield additional domain-related facets. Thus, I conclude that sparse autoencoders bridge comprehensibility and semantic fidelity, enabling refined control over textual representations without sacrificing their embedded complexity.",
+    "url": "https://arxiv.org/abs/2408.00657",
+    "pdf_url": "https://arxiv.org/pdf/2408.00657.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Source2Synth: Synthetic Data Generation and Curation Grounded in Real Data Sources",
+    "authors": [
+      "Alisia Lupidi",
+      "Carlos Gemmell",
+      "Nicola Cancedda",
+      "Jane Dwivedi-Yu",
+      "Jason Weston",
+      "Jakob Foerster",
+      "Roberta Raileanu",
+      "Maria Lomeli"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Lupidi et al., 2025",
+    "abstract": "Large Language Models still struggle in challenging scenarios that leverage structured data, complex reasoning, or tool usage. In this paper, we propose Source2Synth: a new method that can be used for teaching LLMs new skills without relying on costly human annotations. Source2Synth takes as input a custom data source and produces synthetic data points with intermediate reasoning steps grounded in real-world sources. Source2Synth improves the dataset quality by discarding low-quality generations based on their answerability. We demonstrate the generality of this approach by applying it to two challenging domains: we test reasoning abilities in multi-hop question answering (MHQA), and tool usage in tabular question answering (TQA). Our method improves performance by 25.51% for TQA on WikiSQL and 22.57% for MHQA on HotPotQA compared to the fine-tuned baselines.",
+    "bit": "Large Language Models typically rely on extensively curated human-annotated datasets, which can be costly and time-consuming to produce. As a result, they often struggle when faced with structured data, complex multi-step reasoning, or tool usage tasks that go beyond standard text-only contexts.",
+    "flip": "A novel method generates synthetic data points with real-world grounded reasoning steps, eliminating the need for expensive human annotations. This approach further refines data quality by discarding low-quality outputs based on whether they are answerable, leading to more robust training sets and improved model performance.",
+    "spark": "Synthetic real-world grounded training data",
+    "chain_of_reasoning": "I asked: 'Would automatically generating grounded examples from custom sources address the reliance on curated annotations?' I reasoned that incorporating real-world references in synthetic data might mitigate the costs of manual labeling, so I designed a pipeline to produce intermediate reasoning steps and tested whether low-quality outputs could be discarded. A key question emerged: 'How could I verify the reliability of each generation for multi-hop and table-based tasks?' I introduced a filtering mechanism that used answerability checks to remove unsubstantiated data, which improved overall quality. Then I tested on WikiSQL and HotPotQA, observing a 25.51% performance boost for TQA and 22.57% for MHQA. Another question arose: 'Could real-world grounding genuinely guide tool usage in tabular queries?' Analyzing intermediate steps revealed that explicit references improved the model's ability to parse table schemas. I validated this design by repeating the answerability checks on new synthetic data, confirming that consistent reasoning steps sustained high accuracy. My reflection on these results highlighted a sudden realization that synthetic generation, when carefully filtered, exceeded my earlier projections. I see this approach extending beyond these domains, offering a systematic way to enhance LLM capabilities in complex tasks.",
+    "url": "https://arxiv.org/abs/2409.08239",
+    "pdf_url": "https://arxiv.org/pdf/2409.08239.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Measuring Sharpness in Grokking",
+    "authors": [
+      "Jack Miller",
+      "Patrick Gleeson",
+      "Charles O'Neill",
+      "Thang Bui",
+      "Noam Levi"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Miller et al., 2025",
+    "abstract": "Neural networks sometimes exhibit grokking, a phenomenon where perfect or near-perfect performance is achieved on a validation set well after the same performance has been obtained on the corresponding training set. In this workshop paper, we introduce a robust technique for measuring grokking, based on fitting an appropriate functional form. We then use this to investigate the sharpness of transitions in training and validation accuracy under two settings. The first setting is the theoretical framework developed by Levi et al. (2023) where closed form expressions are readily accessible. The second setting is a two-layer MLP trained to predict the parity of bits, with grokking induced by the concealment strategy of Miller et al. (2023). We find that trends between relative grokking gap and grokking sharpness are similar in both settings when using absolute and relative measures of sharpness. Reflecting on this, we make progress toward explaining some trends and identify the need for further study to untangle the various mechanisms which influence the sharpness of grokking.",
+    "bit": "Conventional performance assessments of neural networks often focus on when training and validation metrics match, without accounting for the delayed emergence of true generalization. This overlooks situations where validation accuracy sharply improves long after training performance is perfect, masking the precise timing of this critical transition.",
+    "flip": "An enhanced approach systematically quantifies the sharpness and timing of validation performance transitions by fitting a carefully chosen functional model. This technique captures the delayed yet abrupt rise in validation accuracy, enabling consistent comparisons of grokking behavior across theoretical and practical model settings.",
+    "spark": "Functional form approach to measure grokking",
+    "chain_of_reasoning": "I began by asking myself: does concentrating on early matches between training and validation metrics obscure the moment of genuine generalization? I noticed that validation accuracy sometimes soared much later than expected, so I tested a functional form that captures the abrupt rise in performance. Why did standard tracking methods miss this delayed upswing? I reasoned that a carefully parameterized curve would expose the timing of the transition, so I gathered snapshots of accuracy at frequent intervals. In the first setting, I built on closed-form insights reported by Levi et al. (2023), while in the second, I applied a two-layer MLP for parity based on Miller et al. (2023) and concealed the data in the prescribed manner. My initial fits showed a sharp inflection that confirmed the delayed grokking, so I refined the functional parameters to ensure consistency across both settings. Could the distribution of hidden units or the extent of training steps alter these transition points? Re-examining my data analysis revealed identical trends in absolute and relative sharpness, prompting a deeper investigation into the interplay of architecture size and data complexity. That realization convinced me that quantifying transitions rigorously with a flexible model would yield a robust platform for future validation studies.",
+    "url": "https://arxiv.org/abs/2402.08946",
+    "pdf_url": "https://arxiv.org/pdf/2402.08946.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "'Quis custodiet ipsos custodes?' Who will watch the watchmen? On Detecting AI-generated peer-reviews",
+    "authors": [
+      "Sandeep Kumar",
+      "Mohit Sahu",
+      "Vardhan Gacche",
+      "Tirthankar Ghosal",
+      "Asif Ekbal"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Kumar et al., 2025",
+    "abstract": "The integrity of the peer-review process is vital for maintaining scientific rigor and trust within the academic community. With the steady increase in the usage of large language models (LLMs) like ChatGPT in academic writing, there is a growing concern that AI-generated texts could compromise scientific publishing, including peer-reviews. Previous works have focused on generic AI-generated text detection or have presented an approach for estimating the fraction of peer-reviews that can be AI-generated. Our focus here is to solve a real-world problem by assisting the editor or chair in determining whether a review is written by ChatGPT or not. To address this, we introduce the Term Frequency (TF) model, which posits that AI often repeats tokens, and the Review Regeneration (RR) model, which is based on the idea that ChatGPT generates similar outputs upon re-prompting. We stress test these detectors against token attack and paraphrasing. Finally, we propose an effective defensive strategy to reduce the effect of paraphrasing on our models. Our findings suggest both our proposed methods perform better than the other AI text detectors. Our RR model is more robust, although our TF model performs better than the RR model without any attacks. We make our code, dataset, and model public.",
+    "bit": "Conventional AI-text detection methods often focus on generic texts or merely estimate the percentage of AI-generated material in a corpus, rather than honing in on the specific challenges of detecting machine-written peer reviews. These approaches are limited because they do not reliably identify whether a single, actual peer review is AI-generated and can be vulnerable to paraphrasing or token-manipulation attacks.",
+    "flip": "An approach is introduced that detects ChatGPT-based peer reviews using two distinct detection models: one that leverages repeated token patterns (Term Frequency), and another that identifies re-generated reviews (Review Regeneration). Both methods are validated by stress testing them against token attacks and paraphrasing, and an additional defensive strategy is employed to mitigate paraphrasing.",
+    "spark": "Robust detection of ChatGPT reviews",
+    "chain_of_reasoning": "I recognized that widely used detection frameworks for AI-generated text often overlooked the unique constraints of peer reviews, so I questioned whether they could reliably single out a specific machine-written review among human-authored pieces. Initially, I analyzed repetitions observed in ChatGPT outputs, which guided me to develop the Term Frequency model that tracks recurrent token patterns unique to AI responses. Alongside that, I tested if ChatGPT re-prompts would produce sufficiently correlated versions, which led me to propose the Review Regeneration model aimed at identifying repeated generative signatures. I conducted a series of experiments by requesting multiple reviews from ChatGPT with slight variations in prompts, subsequently subjecting the outputs to token-level and paraphrasing manipulations. At one point, I wondered if simplified token detection would fail under heavy paraphrasing, prompting deeper inquiry into how to secure the models against rewording strategies. Data analysis suggested that both models showed higher detection rates than generic AI-text detectors, with the Term Frequency model slightly outperforming under zero attack conditions. Observations also revealed that the Review Regeneration model excelled under stressful attacks, although its baseline metrics were slightly lower prior to introducing our defensive strategy. By integrating a defensive feature that penalizes synonyms and restructured phrases, I saw a marked resilience in both detection methods, which resolved my main question about robust classification under paraphrasing. To validate these findings, I deployed cross-validation on the collected peer-review set to confirm internal consistency, then performed external tests on new data to confirm generalizability. That turning point illuminated how both specialized detection models could be integrated into editorial workflows, enhancing confidence in identifying AI-generated peer reviews.",
+    "url": "https://arxiv.org/abs/2410.09770",
+    "pdf_url": "https://arxiv.org/pdf/2410.09770.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "DreamCraft: Text-Guided Generation of Functional 3D Environments in Minecraft",
+    "authors": [
+      "Sam Earle",
+      "Filippos Kokkinos",
+      "Yuhe Nie",
+      "Julian Togelius",
+      "Roberta Raileanu"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Earle et al., 2025",
+    "abstract": "Procedural Content Generation (PCG) algorithms enable the automatic generation of complex and diverse artifacts. However, they don't provide high-level control over the generated content and typically require domain expertise. In contrast, text-to-3D methods allow users to specify desired characteristics in natural language, offering a high amount of flexibility and expressivity. But unlike PCG, such approaches cannot guarantee functionality, which is crucial for certain applications like game design. In this paper, we present a method for generating functional 3D artifacts from free-form text prompts in the open-world game Minecraft. Our method, DreamCraft, trains quantized Neural Radiance Fields (NeRFs) to represent artifacts that, when viewed in-game, match given text descriptions. We find that DreamCraft produces more aligned in-game artifacts than a baseline that post-processes the output of an unconstrained NeRF. Thanks to the quantized representation of the environment, functional constraints can be integrated using specialized loss terms. We show how this can be leveraged to generate 3D structures that match a target distribution or obey certain adjacency rules over the block types. DreamCraft inherits a high degree of expressivity and controllability from the NeRF, while still being able to incorporate functional constraints through domain-specific objectives.",
+    "bit": "Procedural Content Generation algorithms can create complex artifacts automatically but provide limited high-level control and typically require domain expertise. Conversely, text-to-3D methods allow users to specify content in natural language but cannot ensure functionality, which is critical for applications like game design.",
+    "flip": "Instead, an idea was introduced that trains quantized Neural Radiance Fields to generate 3D artifacts aligned with free-form text prompts while integrating functional constraints. By quantizing the environment and incorporating domain-specific objectives, this approach maintains expressivity and enforces practical requirements simultaneously.",
+    "spark": "Functional 3D generation from text",
+    "chain_of_reasoning": "I began by asking: how can existing generation methods combine high-level control with guaranteed functionality? I saw that prior approaches either demanded significant domain expertise or offered flexible text-based creation without ensuring in-game viability. To address this gap, I investigated training a quantized radiance-based model that captures structural constraints while preserving natural language expressivity. In early experiments, unconstrained models produced aesthetically appealing but often unusable 3D artifacts, prompting me to add specialized loss terms for block adjacency. I integrated domain objectives into our quantized Neural Radiance Field architecture, ensuring alignment with user prompts through text conditioning while locking in functional requirements. Observing consistent improvement in artifact stability compared to a baseline, I asked: can the generated structures remain stable across extended gameplay? I validated stability by simulating lengthy in-game interactions and verifying that block configurations persisted without violating design constraints. Reflecting on these results, I recognized that discretizing the environment and enforcing adjacency rules simultaneously enabled a balance between creativity and utility. Then I questioned whether adjustments in quantization resolution would refine fidelity further without sacrificing in-game functionality. By iterating on different quantization levels and measuring artifact integrity under dynamic conditions, I confirmed that the synergy between quantized representations and domain-specific constraints allowed us to maintain both expressivity and functional enforcement.",
+    "url": "https://arxiv.org/abs/2404.15538",
+    "pdf_url": "https://arxiv.org/pdf/2404.15538.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Can Large Language Models Unlock Novel Scientific Research Ideas?",
+    "authors": [
+      "Sandeep Kumar",
+      "Tirthankar Ghosal",
+      "Vinayak Goyal",
+      "Asif Ekbal"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Kumar et al., 2025",
+    "abstract": "\"An idea is nothing more nor less than a new combination of old elements\" (Young, J.W.). The widespread adoption of Large Language Models (LLMs) and publicly available ChatGPT have marked a significant turning point in the integration of Artificial Intelligence (AI) into people's everyday lives. This study explores the capability of LLMs in generating novel research ideas based on information from research papers. We conduct a thorough examination of 4 LLMs in five domains (e.g., Chemistry, Computer, Economics, Medical, and Physics). We found that the future research ideas generated by Claude-2 and GPT-4 are more aligned with the author's perspective than GPT-3.5 and Gemini. We also found that Claude-2 generates more diverse future research ideas than GPT-4, GPT-3.5, and Gemini 1.0. We further performed a human evaluation of the novelty, relevancy, and feasibility of the generated future research ideas. This investigation offers insights into the evolving role of LLMs in idea generation, highlighting both its capability and limitations. Our work contributes to the ongoing efforts in evaluating and utilizing language models for generating future research ideas. We make our datasets and codes publicly available.",
+    "bit": "Traditionally, research idea generation has relied heavily on individual expertise, brainstorming, or domain-specific knowledge. This manual, human-centered process can limit the scope and speed of discovering novel insights, making the approach both time-consuming and potentially constrained by cognitive biases.",
+    "flip": "By employing large language models, it is now possible to systematically produce diverse and future-oriented research ideas drawn from vast collections of scientific literature. These models can be evaluated for novelty, relevance, and feasibility, offering a scalable approach to broaden the scope of idea discovery while still aligning closely with human perspectives.",
+    "spark": "LLMs for streamlined research ideation",
+    "chain_of_reasoning": "I initially asked myself how reliance on my own expertise might restrict the speed and breadth of fresh insights. I realized that harnessing advanced language models could systematically expand the horizon of idea creation by synthesizing diverse knowledge. Why should I test these models in several domains, including Chemistry, Computer, Economics, Medical, and Physics? By comparing their outputs across varied fields, I could confirm whether their novelty, alignment with human perspectives, and feasibility remained robust. I utilized human evaluators to gauge the relevance and originality of the model-generated ideas, applying criteria inspired by prior references, such as the notion that an idea emerges from combining established concepts (Young, J.W.). Claude-2 produced the broadest array of future research directions, while GPT-4 often paralleled the author\u2019s intentions closely. Could these observations indicate a deeper potential for LLMs to become integral co-creators of scientific inquiry? I decided to refine the experimental design by introducing more systematic measures of domain-specific diversity and thorough feasibility checks of each proposed idea. At one point, I recognized that maximizing model diversity does not inevitably compromise alignment with established research directions, prompting me to blend both metrics in my validation. Ultimately, this study demonstrated how an automated yet human-directed approach can counter cognitive biases and accelerate innovative research brainstorming on a grand scale.",
+    "url": "https://arxiv.org/abs/2409.06185",
+    "pdf_url": "https://arxiv.org/pdf/2409.06185.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Learning to Play Atari in a World of Tokens",
+    "authors": [
+      "Pranav Agarwal",
+      "Sheldon Andrews",
+      "Samira Ebrahimi Kahou"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Agarwal et al., 2025",
+    "abstract": "Model-based reinforcement learning agents utilizing transformers have shown improved sample efficiency due to their ability to model extended context, resulting in more accurate world models. However, for complex reasoning and planning tasks, these methods primarily rely on continuous representations. This complicates modeling of discrete properties of the real world such as disjoint object classes between which interpolation is not plausible. In this work, we introduce discrete abstract representations for transformer-based learning (DART), a sample-efficient method utilizing discrete representations for modeling both the world and learning behavior. We incorporate a transformer-decoder for auto-regressive world modeling and a transformer-encoder for learning behavior by attending to task-relevant cues in the discrete representation of the world model. For handling partial observability, we aggregate information from past time steps as memory tokens. DART outperforms previous state-of-the-art methods that do not use look-ahead search on the Atari 100k sample efficiency benchmark with a median human-normalized score of 0.790 and beats humans in 9 out of 26 games. We release our code at https://pranaval.github.io/DART/.",
+    "bit": "Existing model-based reinforcement learning methods employing transformers typically rely on continuous representations to model extended context. However, capturing discrete properties such as distinct object classes is challenging when solely using continuous interpolation-based techniques.",
+    "flip": "An approach was introduced that leverages discrete abstract representations within a transformer architecture to handle these discrete aspects more effectively. Specifically, it utilizes a transformer-decoder for auto-regressive world modeling and a transformer-encoder to focus on task-relevant cues in the discrete representation, while incorporating memory tokens for partial observability.",
+    "spark": "Discrete tokens for sample-efficient transformers",
+    "chain_of_reasoning": "I began by noticing that a purely continuous representation struggles to model distinct object classes in real-world scenarios. Therefore I asked: how might I incorporate discrete tokens without sacrificing the extended context advantages of transformers? My initial iteration used a transformer-decoder for auto-regressive world modeling but indicated the need for memory tokens to handle partial observability across time. I also questioned whether a parallel transformer-encoder could emphasize key aspects of the discrete representation to guide policy decisions. After implementing this dual-transformer design, I conducted experiments in a known arcade benchmark and confirmed that the method achieved a substantial median normalized score surpassing 0.79 while outperforming humans in multiple tasks. To validate these insights, I examined encoder attention patterns and probed if expanding memory tokens would further improve learning stability. A critical turning point arose during data analysis when the discrete representation neatly separated object classes, illustrating its advantage. In response, I fine-tuned the decoding procedure and retested in various partial observability settings, confirming more robust performance. Additional samples were gathered to examine whether these discrete abstractions scaled well, revealing consistent gains in complex tasks. Conclusively, I am convinced that introducing discrete representations into transformer-based world models marks a pivotal advance for more effective decision-making under uncertainty.",
+    "url": "https://arxiv.org/abs/2406.01361",
+    "pdf_url": "https://arxiv.org/pdf/2406.01361.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Improving Uncertainty Quantification in Large Language Models via Semantic Embeddings",
+    "authors": [
+      "Yashvir S. Grewal",
+      "Edwin V. Bonilla",
+      "Thang D. Bui"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "Grewal et al., 2025",
+    "abstract": "Accurately quantifying uncertainty in large language models (LLMs) is crucial for their reliable deployment, especially in high-stakes applications. Current state-of-the-art methods for measuring semantic uncertainty in LLMs rely on strict bidirectional entailment criteria between multiple generated responses and also depend on sequence likelihoods. While effective, these approaches often overestimate uncertainty due to their sensitivity to minor wording differences, additional correct information, and non-important words in the sequence. We propose a novel approach that leverages semantic embeddings to achieve smoother and more robust estimation of semantic uncertainty in LLMs. By capturing semantic similarities without depending on sequence likelihoods, our method inherently reduces any biases introduced by irrelevant words in the answers. Furthermore, we introduce an amortised version of our approach by explicitly modelling semantics as latent variables in a joint probabilistic model. This allows for uncertainty estimation in the embedding space with a single forward pass, significantly reducing computational overhead compared to existing multi-pass methods. Experiments across multiple question-answering datasets and frontier LLMs demonstrate that our embedding-based methods provide more accurate and nuanced uncertainty quantification than traditional approaches.",
+    "bit": "Conventional methods measure semantic uncertainty by requiring strict bidirectional entailment among multiple generated responses and relying on sequence likelihoods. This practice often overestimates uncertainty because it is sensitive to minor wording differences, superfluous correct details, and irrelevant words in the sequence.",
+    "flip": "A new strategy leverages semantic embeddings to quantify uncertainty more robustly without depending on sequence likelihoods. By focusing on semantic similarity, it eliminates noise introduced by inconsequential wording and allows for an amortised approach\u2014modelling semantics as latent variables in a joint probabilistic model\u2014to reduce computational overhead.",
+    "spark": "Smoother embedding-based uncertainty quantification",
+    "chain_of_reasoning": "I asked myself how to reliably measure uncertainty without conflating trivial textual variations with genuine semantic ambiguity. Upon reviewing current methods, I noticed they rely heavily on word-level alignment, which can inflate estimated uncertainty whenever small phrasing discrepancies appear. I wondered whether focusing on the underlying meaning could help me avoid these superficial mismatches. I decided to generate embeddings that capture core semantics rather than rely on raw sequence likelihood, then treat these embeddings as key latent variables in a joint model. During experiments on multiple benchmarks, I observed that ignoring inconsequential wording substantially reduced spurious uncertainty estimates. Could this approach be deployed at scale without an explosion of computational cost? By amortizing the inference steps, I discovered how to obtain robust estimates in a single pass, effectively making the strategy computationally feasible. I confirmed these findings by carefully validating the alignment between predicted embeddings and ground-truth meaning across diverse question-answering datasets. One crucial moment occurred when I realized that the embedding-based uncertainty estimates correlated more faithfully with actual semantic discrepancies than any sequence-likelihood approach. With evidence from multiple trials on frontier LLMs, I concluded that robust embedding-based strategies address the central challenge of inflated uncertainty while maintaining efficient performance.",
+    "url": "https://arxiv.org/abs/2410.22685",
+    "pdf_url": "https://arxiv.org/pdf/2410.22685.pdf"
+  },
+  {
+    "paper_id": "",
+    "title": "Compute Optimal Inference and Provable Amortisation Gap in Sparse Autoencoders",
+    "authors": [
+      "Charles O'Neill",
+      "Alim Gumran",
+      "David Klindt"
+    ],
+    "venue": "arXiv",
+    "year": "2025",
+    "citation": "O'Neill et al., 2025",
+    "abstract": "A recent line of work has shown promise in using sparse autoencoders (SAEs) to uncover interpretable features in neural network representations. However, the simple linear-nonlinear encoding mechanism in SAEs limits their ability to perform accurate sparse inference. Using compressed sensing theory, we prove that an SAE encoder is inherently insufficient for accurate sparse inference, even in solvable cases. We then decouple encoding and decoding processes to empirically explore conditions where more sophisticated sparse inference methods outperform traditional SAE encoders. Our results reveal substantial performance gains with minimal compute increases in correct inference of sparse codes. We demonstrate this generalises to SAEs applied to large language models, where more expressive encoders achieve greater interpretability. This work opens new avenues for understanding neural network representations and analysing large language model activations.",
+    "bit": "Sparse autoencoders are commonly used to extract interpretable features in neural network representations by relying on a simple linear-nonlinear encoder. However, using this mechanism alone fails to accurately recover sparse codes, as shown with compressed sensing theory, even in cases that should be solvable.",
+    "flip": "Instead, the encoding and decoding steps can be decoupled, enabling more sophisticated inference methods for sparse representations. Empirical evidence shows that these advanced encoders offer significantly improved sparse recovery with minimal additional compute, and they generalize effectively to large language models.",
+    "spark": "Decoupled encoders for accurate sparse inference",
+    "chain_of_reasoning": "I asked myself why typical autoencoders with linear-nonlinear mappings struggled to yield accurate sparse codes, despite theoretical solvability. I realized that the inherent structure of these encoders prevents rigorous sparse inference, as confirmed by compressed sensing analysis. Could a decoupled encoding and decoding procedure improve the inference pipeline with minimal overhead? I conducted experiments that replaced conventional encoders with more expressive inference mechanisms, measuring their capacity to recover sparse signals from known synthetic distributions. The results showed substantially more accurate sparse predictions, aligning with minimal increases in computational cost. This success in smaller setups motivated me to test large language model activations, where I observed more interpretable features with these advanced encoders. Reflecting on this outcome, I recognized that the synergy between robust inference algorithms and carefully tailored decoders resolved key bottlenecks. My key methodological concern is how best to tune hyperparameters for different data domains, and how to validate interpretability beyond reconstruction error. I intend to refine experimental protocols by expanding the range of sample complexities, systematically varying architectural choices, and measuring stability across initialization seeds. A pivotal question remains: is there a fundamental limit on how expressive encoders should be for consistent sparse recovery in large-scale applications?",
+    "url": "https://arxiv.org/abs/2411.13117",
+    "pdf_url": "https://arxiv.org/pdf/2411.13117.pdf"
+  }
+]
