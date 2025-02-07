@@ -22,7 +22,7 @@ model.eval()
 
 # Function to generate response
 def generate_hypothesis(bit_statement, max_length=1024, temperature=0.1, top_p=0.9):
-    """Generates a hypothesis (Flip, and its Reasoning Chain) given a Bit statement."""
+    """Generates only hypothesis (Flip, and its Reasoning Chain) given a Bit statement."""
     input_text = f"""
     ### Bit:
     {bit_statement}
