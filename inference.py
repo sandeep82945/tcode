@@ -1,4 +1,5 @@
 import torch
+import json
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
@@ -12,7 +13,7 @@ tokenizer.pad_token = tokenizer.eos_token
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     trust_remote_code=True,
-    device_map="auto")
+    device_map="auto"")
 
 # Load PEFT adapter (LoRA fine-tuned model)
 model = PeftModel.from_pretrained(model, fine_tuned_model_dir)
@@ -43,9 +44,25 @@ def generate_hypothesis(bit_statement, max_length=512, temperature=0.7, top_p=0.
     generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
     return generated_text
 
-# Example inference
-if __name__ == "__main__":
-    bit_example = "Transformer-based models struggle with handling long sequences efficiently in scientific hypothesis generation."
-    generated_hypothesis = generate_hypothesis(bit_example)
-    print("\nGenerated Flip and its Reasoning Chain:")
-    print(generated_hypothesis)
+# Load test dataset
+test_file = "test_set_reasoning.json"
+with open(test_file, "r") as f:
+    test_data = json.load(f)
+
+# Process test set and generate outputs
+results = []
+for item in test_data:
+    bit_statement = item.get("bit", "")
+    generated_output = generate_hypothesis(bit_statement)
+    results.append({
+        "title": item.get("title", ""),
+        "bit": bit_statement,
+        "generated_flip_reasoning": generated_output
+    })
+
+# Save results to JSON
+output_file = "generated_outputs.json"
+with open(output_file, "w") as f:
+    json.dump(results, f, indent=4)
+
+print(f"Generated outputs saved to {output_file}")
