@@ -5,6 +5,9 @@ from peft import LoraConfig, PeftModel
 from trl import SFTTrainer
 from transformers import TrainingArguments
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
 # local_rank = os.getenv("LOCAL_RANK")
 os.environ["WANDB_DISABLED"] = "true"
 # device_string = "cuda:0"# + str(local_rank)
@@ -65,6 +68,7 @@ def formatting_prompts_func(examples):
 # Load dataset
 dataset = load_dataset("json", data_files="merged_reasoning.json", split="train")
 dataset = dataset.map(formatting_prompts_func, batched=True)
+dataset.set_format(type="torch", device=device)
 
 print(len(dataset["text"]))
 
@@ -81,9 +85,8 @@ model = AutoModelForCausalLM.from_pretrained(
     model_name,
     # quantization_config=bnb_config,
     trust_remote_code=True,
-    use_cache = True,
-    device_map="auto", #{device_string}
-)
+    use_cache = True
+).to(device)
 
 # PEFT config
 lora_alpha = 16
@@ -127,6 +130,7 @@ training_arguments = TrainingArguments(
     report_to=None,
 )
 
+
 # Trainer 
 trainer = SFTTrainer(
     model=model,
@@ -137,6 +141,8 @@ trainer = SFTTrainer(
     tokenizer=tokenizer,
     args=training_arguments,
 )
+# Ensure model is using CUDA
+trainer.args.device = device
 
 # Not sure if needed but noticed this in https://colab.research.google.com/drive/1t3exfAVLQo4oKIopQT1SKxK4UcYg7rC1#scrollTo=7OyIvEx7b1GT
 for name, module in trainer.model.named_modules():
