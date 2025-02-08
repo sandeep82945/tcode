@@ -141,8 +141,6 @@ trainer = SFTTrainer(
     tokenizer=tokenizer,
     args=training_arguments,
 )
-# Ensure model is using CUDA
-trainer.args.device = device
 
 # Not sure if needed but noticed this in https://colab.research.google.com/drive/1t3exfAVLQo4oKIopQT1SKxK4UcYg7rC1#scrollTo=7OyIvEx7b1GT
 for name, module in trainer.model.named_modules():
