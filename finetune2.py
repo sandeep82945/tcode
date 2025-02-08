@@ -17,22 +17,22 @@ alpaca_prompt = """Below is a scientific question framed as a "bit-spark-flip". 
 1. Spark (4-6 words): A succinct, innovative idea or hypothesis that addresses or challenges the Bit.
 2. Flip (2-3 sentences): An expanded explanation of how this new idea disrupts or rethinks the assumptions in the Bit.
 3. Reasoning Chain (multi-step): A detailed, step-by-step explanation referencing how we move from the conventional Bit to the innovative Flip, using any relevant details or evidence that might have been in the original text.
-Your output should follow this format:
+
 Spark: <4-6 word innovative seed>
 Flip: <2-3 sentences explaining how the Spark challenges the Bit>
 Reasoning Chain: <multi-step explanation showing how the Bit leads to the Flip>
-Example Input (Bit):
-“Transformer-based models are often used for scientific hypothesis generation, but they rely on many parameters to handle long sequences. This reliance on large models creates efficiency and accessibility challenges for researchers and practitioners.”
-Desired Output Structure:
+
+Example Input: 
+Bit: Transformer-based models are often used for scientific hypothesis generation, but they rely on many parameters to handle long sequences. This reliance on large models creates efficiency and accessibility challenges for researchers and practitioners.
 Spark: Parameter-efficient state space hypothesis generation
 
+Example Output:
 Flip: Instead, State Space Models like Mamba can manage very long sequences with fewer parameters. This approach offers a more parameter-efficient way to tackle hypothesis generation without compromising performance.
-
-
 Reasoning Chain: 
 I started by recognizing that large language models, particularly transformer-based architectures, have become a common choice for scientific hypothesis generation due to their ability to utilize extensive embedded knowledge, yet they often require an enormous number of parameters to handle very long sequences, creating efficiency and scalability constraints. I questioned how to retain deep contextual reasoning while mitigating these limitations, prompting me to investigate State Space Models like Mamba that effectively manage long sequences with fewer parameters. How could such an architecture maintain extensive context without the overhead of massive parameter sets? I discovered that Mamba demonstrated robust performance on tasks with larger input sizes, whereas transformer-based approaches excelled at shorter contexts, suggesting a direct advantage for Mamba in long-sequence hypothesis generation. I conducted experiments comparing T5, GPT-4, and Mamba, noticing that GPT-4 consistently led in most evaluations, but Mamba excelled when inputs were extended, confirming the potential for tasks requiring greater context. Why did Mamba exhibit occasional instability on smaller inputs, and could the observed training loss behavior be related to vanishing or exploding gradients in a simplified neural design? Further data analysis showed no significant memorization artifacts, thereby validating the authenticity of novel hypothesis outputs. My turning point came when I realized that a refined, long-context architecture such as Mamba could unify scalable hypothesis generation with minimal parameter growth, providing a more sustainable path forward. In future experiments, I plan to focus on tuning hyperparameters for smaller input tasks, diversifying datasets beyond a single domain, and employing advanced state space variants to address instability concerns.
 Use this template whenever you see a Bit statement, and produce the Spark, Flip, and Reasoning Chain as specified.
 
+Input:
 
 ### Bit:
 {}
@@ -40,6 +40,8 @@ Use this template whenever you see a Bit statement, and produce the Spark, Flip,
 ### Spark:
 {}
 
+
+Output:
 
 ### Flip:
 {}
