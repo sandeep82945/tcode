@@ -103,68 +103,58 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 # )
 
 # PEFT config
-lora_alpha = 16
-lora_dropout = 0.1
-lora_r = 64
-peft_config = LoraConfig(
-    lora_alpha=lora_alpha,
-    lora_dropout=lora_dropout,
-    r=lora_r,
+
+#########################################
+# Step 7: Apply PEFT with LoRA
+#########################################
+model = FastLanguageModel.get_peft_model(
+    model,
+    r=16,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    lora_alpha=16,
+    lora_dropout=0,
     bias="none",
-    task_type="CAUSAL_LM",
-    target_modules=["k_proj", "q_proj", "v_proj", "up_proj", "down_proj", "gate_proj"]
+    use_gradient_checkpointing="unsloth",
+    random_state=3407,
+    use_rslora=False,
+    loftq_config=None,
 )
 
-# Args 
-max_seq_length = 512
-output_dir = "/scratch/ttc/sandeep/hypothesis_deep"
-per_device_train_batch_size = 2
-optim = "adamw_hf"
-logging_steps = 1
-learning_rate = 2e-4
-max_grad_norm = 0.3
-warmup_ratio = 0.1
-max_steps = len(dataset) * per_device_train_batch_size
-lr_scheduler_type = "cosine"
-training_arguments = TrainingArguments(
-    output_dir=output_dir,
-    per_device_train_batch_size=per_device_train_batch_size,
-    optim=optim,
-    max_steps=max_steps,
-    logging_steps=logging_steps,
-    learning_rate=learning_rate,
-    fp16=True,
-    max_grad_norm=max_grad_norm,
-    warmup_ratio=warmup_ratio,
-    group_by_length=False, # Otherwise weird loss pattern (see https://github.com/artidoro/qlora/issues/84#issuecomment-1572408347, https://github.com/artidoro/qlora/issues/228, https://wandb.ai/answerdotai/fsdp_qlora/runs/snhj0eyh)
-    lr_scheduler_type=lr_scheduler_type,
-    gradient_checkpointing=False,
-    gradient_checkpointing_kwargs={'use_reentrant':False}, # Needed for DDP
-    # report_to="wandb",
-    report_to=None,
+#########################################
+# Step 8: Configure Trainer and Training Arguments
+#########################################
+training_args = TrainingArguments(
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=4,
+    warmup_steps=5,
+    max_steps=60,  # Increase for full fine-tuning runs
+    learning_rate=2e-4,
+    fp16=not is_bfloat16_supported(),
+    bf16=is_bfloat16_supported(),
+    logging_steps=10,
+    optim="adamw_8bit",
+    weight_decay=0.01,
+    lr_scheduler_type="linear",
+    seed=3407,
+    output_dir= "/scratch/ttc/sandeep/hypothesis_deep",
 )
 
 # Trainer 
 trainer = SFTTrainer(
     model=model,
+    tokenizer=tokenizer,
     train_dataset=dataset,
-    peft_config=peft_config,
     dataset_text_field="text",
     max_seq_length=max_seq_length,
-    tokenizer=tokenizer,
-    args=training_arguments,
+    dataset_num_proc=2,
+    args=training_args,
 )
 
-# Not sure if needed but noticed this in https://colab.research.google.com/drive/1t3exfAVLQo4oKIopQT1SKxK4UcYg7rC1#scrollTo=7OyIvEx7b1GT
-for name, module in trainer.model.named_modules():
-    if "norm" in name:
-        module = module.to(torch.float32)
-
-# Train :)
-trainer.train()
-
-trainer.save_model(output_dir)
-tokenizer.save_pretrained(output_dir)
+#########################################
+# Step 9: Fine-Tune the Model
+#########################################
+trainer_stats = trainer.train()
+print("Training completed. Stats:", trainer_stats)
 
 exit(0)
 model = AutoModelForCausalLM.from_pretrained(
