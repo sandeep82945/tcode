@@ -7,6 +7,8 @@ from transformers import TrainingArguments
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+print(f"Using device: {device}")
+
 
 # local_rank = os.getenv("LOCAL_RANK")
 os.environ["WANDB_DISABLED"] = "true"
