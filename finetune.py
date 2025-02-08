@@ -99,7 +99,7 @@ peft_config = LoraConfig(
 
 # Args 
 max_seq_length = 512
-output_dir = "/scratch/ttc/sandeep/hypothesis"
+output_dir = "/scratch/ttc/sandeep/hypothesis2"
 per_device_train_batch_size = 2
 optim = "adamw_hf"
 logging_steps = 1
