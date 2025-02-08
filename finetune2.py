@@ -87,8 +87,9 @@ model = AutoModelForCausalLM.from_pretrained(
     model_name,
     # quantization_config=bnb_config,
     trust_remote_code=True,
-    use_cache = True
-).to(device)
+    use_cache = True,
+    device_map="auto"
+)
 
 # PEFT config
 lora_alpha = 16
