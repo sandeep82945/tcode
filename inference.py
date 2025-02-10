@@ -45,7 +45,7 @@ def generate_hypothesis(bit_statement, max_length=1024, temperature=0.1, top_p=0
     return generated_text
 
 # Load test dataset
-test_file = "test_set_reasoning.json"
+test_file = "test_final.json"
 with open(test_file, "r") as f:
     test_data = json.load(f)
 
