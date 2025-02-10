@@ -15,11 +15,12 @@ fine_tuned_model_dir = "/scratch/ttc/sandeep/hypothesis_deep"
 
 from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer
+
 model = AutoPeftModelForCausalLM.from_pretrained(
     fine_tuned_model_dir, # YOUR MODEL YOU USED FOR TRAINING
     load_in_4bit = load_in_4bit,
 )
-tokenizer = AutoTokenizer.from_pretrained("lora_model")
+tokenizer = AutoTokenizer.from_pretrained(fine_tuned_model_dir)
 
 model.eval()
 
