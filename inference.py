@@ -5,7 +5,7 @@ from peft import PeftModel
 
 # Load the fine-tuned model and tokenizer
 model_name = "meta-llama/Llama-3.1-8B-Instruct"  # Base model name
-fine_tuned_model_dir = "/scratch/ttc/sandeep/hypothesis"  # Directory where trained model is saved
+fine_tuned_model_dir = "/scratch/ttc/sandeep/hypothesis2"  # Directory where trained model is saved
 
 tokenizer = AutoTokenizer.from_pretrained(fine_tuned_model_dir, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token

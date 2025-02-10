@@ -8,6 +8,7 @@ from transformers import TrainingArguments
 # local_rank = os.getenv("LOCAL_RANK")
 os.environ["WANDB_DISABLED"] = "true"
 # device_string = "cuda:0"# + str(local_rank)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the dataset
 # dataset_name = "charlieoneill/hypothesis_generation"
