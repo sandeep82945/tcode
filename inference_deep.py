@@ -3,25 +3,21 @@ import json
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
+# Load the fine-tuned model and tokenizer
+model_name = "unsloth/DeepSeek-R1-Distill-Llama-8B"  # Base model name
+fine_tuned_model_dir = "/scratch/ttc/sandeep/hypothesis_deep"  # Directory where trained model is saved
 
-from unsloth import FastLanguageModel, is_bfloat16_supported
+tokenizer = AutoTokenizer.from_pretrained(fine_tuned_model_dir, trust_remote_code=True)
+tokenizer.pad_token = tokenizer.eos_token
 
-max_seq_length = 2048
-dtype = None
-load_in_4bit = True
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    trust_remote_code=True,
+    device_map="auto")
 
-
-fine_tuned_model_dir = "/scratch/ttc/sandeep/hypothesis_deep"
-
-from peft import AutoPeftModelForCausalLM
-from transformers import AutoTokenizer
-
-model = AutoPeftModelForCausalLM.from_pretrained(
-    fine_tuned_model_dir, # YOUR MODEL YOU USED FOR TRAINING
-    load_in_4bit = load_in_4bit,
-)
-tokenizer = AutoTokenizer.from_pretrained(fine_tuned_model_dir)
-
+# Load PEFT adapter (LoRA fine-tuned model)
+model = PeftModel.from_pretrained(model, fine_tuned_model_dir)
+model = model.merge_and_unload()
 model.eval()
 
 # Function to generate response
